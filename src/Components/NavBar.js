@@ -2,16 +2,13 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useValue } from "../context/UserContext";
 import { useProdVal } from '../context/ProductContext';
 import { Button,Badge} from "react-bootstrap";
-// import { CartFill } from 'bootstrap-icons';
-import {auth} from '../firebaseInit'
+
+
 
 const NavBar = () => {
-const { userId,handleIdChange } = useValue();
+const { userId,fMethodToLogout } = useValue();
 const {cartList} = useProdVal();
-const sign_Out=()=>{
-  auth.signOut();
-handleIdChange(null);
-}
+
 
   return (
     <div>
@@ -66,7 +63,7 @@ handleIdChange(null);
         {cartList.length}
       </Badge>      
           </NavLink>
-          <Button variant="danger" onClick={sign_Out}>Log Out</Button>
+          <Button variant="danger" onClick={fMethodToLogout}>Log Out</Button>
           
 </>:    
           <NavLink

@@ -1,15 +1,20 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import { useProdVal } from '../context/ProductContext';
 
 function Orders() {
-  return (
+  
+  const {ordersList,isLoading} = useProdVal();
+ 
+  return (   
+    isLoading?"dsd": 
     <Container>
       <h1>Your Orders</h1>
-      
-      <div style={{textAlign: 'center', marginTop:'2rem'}}>
-        <h2>Ordered On:- 2023-07-29</h2>
-        <Table striped>
+      {ordersList.map(or=>    
+      <div key={or.date} style={{textAlign: 'center', marginTop:'2rem'}}>
+        <h2>Ordered On: {or.date}</h2>
+        <Table striped bordered hover size="sm">
           <thead>
             <tr>
               <th>Title</th>
@@ -19,32 +24,27 @@ function Orders() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Fjallraven - Foldsack No....</td>
-              <td>₹ 1099 </td>
-              <td>4 </td>
-              <td>₹ 4396</td>
+            {or.cartList.map(pr=>
+            <tr key={pr.productId}>
+              <td>{pr.name}</td>
+              <td>{pr.price}</td>
+              <td>{pr.qty}</td>
+              <td>{(pr.price)*(pr.qty)}</td>
             </tr>
-            <tr>
-              <td>SanDisk SSD PLUS 1TB Inte...</td>
-              <td>₹ 699 </td>
-              <td>3 </td>
-              <td>₹ 2097</td>
-            </tr>
-            <tr>
-              <td>Silicon Power 256GB SSD 3...</td>
-              <td>₹ 5000 </td>
-              <td>1 </td>
-              <td>₹ 5000</td>
-            </tr>
-            <tr></tr>
+              )}
+                
           </tbody>
-          <tr colspan='4'>
-            <td>₹ 11493</td>
-          </tr>
+          <tfoot>
+            <tr>
+              <td colSpan='4' style={{textAlign: 'center',fontWeight:'bold'}}> Grand Total: ₹ {or.total}</td>
+
+            </tr>
+          </tfoot>
         </Table>
       </div>
+      )}
     </Container>
+    
   );
 }
 

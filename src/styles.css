@@ -185,3 +185,15 @@ form input {
   background-color: #9a64ec;
   cursor: pointer;
 }
+
+.loader{ 
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+h1{
+  display: inline-block!important;
+  width: 100%!important;
+  text-align: center!important;
+}

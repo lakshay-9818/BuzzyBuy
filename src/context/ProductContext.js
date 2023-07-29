@@ -1,8 +1,9 @@
 // this file will setup userId as a context that can be accessed by all the components
 import { createContext, useState,useContext,useEffect } from "react";
 import { useValue } from "./UserContext";
-import { doc, setDoc, getDoc} from "firebase/firestore"; 
+import { doc, setDoc, getDoc,deleteDoc} from "firebase/firestore"; 
 import { db ,auth} from "../firebaseInit";
+
 
 export const ProductContext = createContext();
 
@@ -14,14 +15,18 @@ export const useProdVal =()=>{
 export const ProductProvider = ({ children }) => { 
 
    const {userId}= useValue();
+   const[isLoading,setLoading]=useState(false);
    const [isAdding,setIsAdding]=useState(null);
    const [productsInCart,setPiC]= useState([]);
    const [cartList,setCartList]= useState([]);
    const[total,setTotal]=useState(0);
+   const[ordersList,setOrdersList]=useState([]);
 
   useEffect(()=>{
     auth.onAuthStateChanged((user)=>{
-     getData(user.uid);
+      if(user){
+        getData(user.uid)
+      }
     })
     completeCartList();
   },[]);
@@ -81,7 +86,7 @@ isInc? pQty++: pQty--;
 
 const newProduct= { productId,prodRef,qty:pQty};
 
-if(index==-1){productsArray.push(newProduct);}
+if(index===-1){productsArray.push(newProduct);}
 else{
 productsArray = [
   ...productsArray.slice(0, index),
@@ -98,19 +103,53 @@ setPiC(productsArray);
 };  
 
 
+const handlePurchase=async()=>{
+  let purchases=[];
+// step 0: get prev data from Db
+const orderRef = doc(db, "Orders", userId);
+const orderSnap = await getDoc(orderRef);
+if (orderSnap.exists()) {
+  purchases=orderSnap.data().purchases;
+}
+// step 0.5: new purchases array generation
+purchases=[{date:(new Date()).toLocaleDateString('en-US')
+, cartList,total},...purchases];
+  //step 1: put cart into orders
+  await setDoc(doc(db, "Orders", userId),{purchases
+   });
+    //step 2: delete data for cart
+  await deleteDoc(doc(db, "Carts", userId));
+  setPiC([]);
+  //step 3: update ordersList
+  setOrdersList(purchases);
+  };
+
+
+
 
   const getData = async (userId) => {
+    setLoading(true);
     try{// cart info
     const cartRef = doc(db, "Carts", userId);  
     const cartSnap = await getDoc(cartRef);
     const productsArray = cartSnap?.data()?.products|| [];
     setPiC(productsArray);
-  }catch(err){console.log(err)}
+
+      //ordersList info
+      const orderRef = doc(db, "Orders", userId);
+      const orderSnap = await getDoc(orderRef);
+      if (orderSnap.exists()) {
+      setOrdersList(orderSnap.data().purchases);     
+    }
+  }catch(err){console.log(err)}  
+  setLoading(false);
   };
   
 
   return (
-    <ProductContext.Provider value={{handleCart,cartList,isAdding,total}}>
+    <ProductContext.Provider 
+    value={{handleCart,cartList,isAdding,isLoading,
+        total,handlePurchase,ordersList}}>
       {children}
     </ProductContext.Provider>
   );

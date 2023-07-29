@@ -5,7 +5,7 @@ const SearchBar = ({ onSearch }) => {
   const[st,setST]= React.useState("");
 
   return (
-    <Form inline>
+    <Form inline >
         
       <input type="text"
         value={st}

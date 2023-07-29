@@ -1,29 +1,14 @@
 import React, { useState } from "react";
-import {createUserWithEmailAndPassword } from "firebase/auth";
-import {auth} from '../firebaseInit';
+import { useValue } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const {fMethodToRegister}= useValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const fMethod=()=>{
-    createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user);
-    // ...
-    navigate("/signIN");
-  })
-  .catch((error) => {
-    alert(error.message);
-    // ..
-  });
-
-}
+  
 
    const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,7 +32,8 @@ const SignUp = () => {
       return;
     }
     // TODO: Submit the form data to the server
-      fMethod();
+      fMethodToRegister(email,password);
+      navigate("/");
   };
 
   return (

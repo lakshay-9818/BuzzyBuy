@@ -4,7 +4,7 @@ import {
 RouterProvider,
 Navigate
 } from "react-router-dom";
-import {useEffect} from "react";
+
 import {useValue} from "./context/UserContext";
 import NavBar from "./Components/NavBar";
 import Home from "./Pages/Home";
@@ -13,19 +13,10 @@ import Orders from "./Pages/Orders";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import NotFound from "./Pages/NotFound";
-import {auth} from './firebaseInit';
+
 
 function App() {
-  const { userId,handleIdChange} = useValue();
-
-  useEffect(()=>{
-    auth.onAuthStateChanged((user)=>{
-      if(user){
-        handleIdChange(user.uid)
-      }
-      else handleIdChange(null);
-    })
-  },[]);
+  const { userId,isUserLoading} = useValue();  
 
 // created high-level protected route below
 const ProtectedRoute = ({ children }) => {
@@ -68,7 +59,7 @@ const router = createBrowserRouter([
 
 
 
-  return (
+  return (isUserLoading?'user loading...':
     <div className="App">
       <RouterProvider router={router} />
     </div>
