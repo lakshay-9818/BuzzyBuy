@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useValue } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import "../signInstyl.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const {fMethodToRegister}= useValue();
+  const { fMethodToRegister } = useValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
 
-   const handleChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
       case "email":
@@ -28,41 +28,97 @@ const SignUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      console.log("Passwords do not match!");
       return;
     }
-    // TODO: Submit the form data to the server
-      fMethodToRegister(email,password);
-      navigate("/");
+    // Submitting the form data to the cloud firestore
+    fMethodToRegister(email, password);
+    navigate("/");
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit} className="border w-50 text-center">
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleChange}
-        />
-        <br/>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={handleChange}
-        />
-        <button type="submit">Sign Up</button>
+    <div className="card-body p-5">
+      <h2 className="text-uppercase text-center mb-5">Create an account</h2>
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form3Example3cg">
+            Your Email
+          </label>
+          <input
+            type="email"
+            id="form3Example3cg"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={handleChange}
+            className="form-control form-control-lg"
+          />
+        </div>
+
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form3Example4cg">
+            Password
+          </label>
+          <input
+            type="password"
+            id="form3Example4cg"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={handleChange}
+            className="form-control form-control-lg"
+          />
+        </div>
+
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form3Example4cdg">
+            Repeat your password
+          </label>
+          <input
+            type="password"
+            id="form3Example4cdg"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={handleChange}
+            className="form-control form-control-lg"
+          />
+        </div>
+
+        <div className="form-check d-flex justify-content-center mb-5">
+          <input
+            className="form-check-input me-2"
+            type="checkbox"
+            value=""
+            id="form2Example3cg"
+          />
+          <label className="form-check-label" for="form2Example3g">
+            I agree all statements in{" "}
+            <a href="#!" className="text-body">
+              <u>Terms of service</u>
+            </a>
+          </label>
+        </div>
+
+        <div className="d-flex justify-content-center">
+          <button
+            type="submit"
+            className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+          >
+            Register
+          </button>
+        </div>
+
+        <p className="text-center text-muted mt-5 mb-0">
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/signIN")}
+            className="fw-bold text-body"
+          >
+            <u>Login Here</u>
+          </span>
+        </p>
       </form>
     </div>
   );

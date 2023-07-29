@@ -1,17 +1,21 @@
 import React from 'react'
 import { useProdVal } from '../context/ProductContext';
 import ProductCard from '../Components/ProductCard';
-
-import {Row, Col, Container,Button} from 'react-bootstrap';
+import {ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import {Row, Col, Container,Button,Spinner} from 'react-bootstrap';
 
 function Cart() {
   const {cartList,total,handlePurchase,isLoading} = useProdVal();
 
-  if(isLoading)return 'loading';
-  if(cartList.length===0) return <h1>cart is empty</h1>;
-  else
-  return(
+  if(isLoading)return  (<div className="loader">
+  <Spinner animation="border" />
+  </div>  )
 
+  else
+  return(<>
+    <ToastContainer autoClose={1000}/>
+    {cartList.length===0 ? <h1>Cart is empty ! Nothing to show</h1>:
     <Container className='border'> 
     <Row>
     <Col md={2}>
@@ -35,8 +39,8 @@ function Cart() {
     </div>
     </Col>
     </Row>
-  </Container>)
-  
+  </Container>}
+  </>);
 }
 
 export default Cart

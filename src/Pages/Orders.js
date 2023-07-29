@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
+import {Table,Spinner} from "react-bootstrap";
 import { useProdVal } from '../context/ProductContext';
 
 function Orders() {
@@ -8,7 +8,10 @@ function Orders() {
   const {ordersList,isLoading} = useProdVal();
  
   return (   
-    isLoading?"dsd": 
+    isLoading?<div className="loader">
+    <Spinner animation="border" />
+    </div>  :
+    
     <Container>
       <h1>Your Orders</h1>
       {ordersList.map(or=>    

@@ -36,7 +36,7 @@ const fMethodToRegister=(email,password)=>{
  
 })
 .catch((error) => {
-  alert(error.message);
+  console.log(error.message);
   // ..
 });
 }
@@ -51,7 +51,7 @@ const fMethodToLogin=(email,password)=>{
     setUserId(user.uid);       
   })
   .catch((error) => {
-    alert(error.message);
+    console.log(error.message);
   });
 
 }
