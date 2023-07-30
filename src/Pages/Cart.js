@@ -29,7 +29,7 @@ function Cart() {
     <div className="card-container d-flex flex-row flex-wrap">
     {
     cartList.map((p)=>
-      <ProductCard key={p.productId} 
+      <ProductCard key={p.id} 
       product={p} isCart={true} 
       />          
     )

@@ -27,8 +27,8 @@ function Orders() {
           </thead>
           <tbody>
             {or.cartList.map(pr=>
-            <tr key={pr.productId}>
-              <td>{pr.name}</td>
+            <tr key={pr.id}>
+              <td>{pr.title}</td>
               <td>{pr.price}</td>
               <td>{pr.qty}</td>
               <td>{(pr.price)*(pr.qty)}</td>

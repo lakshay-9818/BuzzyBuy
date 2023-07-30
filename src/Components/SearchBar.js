@@ -1,11 +1,11 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form} from "react-bootstrap";
 
 const SearchBar = ({ onSearch }) => {
   const[st,setST]= React.useState("");
 
   return (
-    <Form inline >
+    <Form >
         
       <input type="text"
         value={st}

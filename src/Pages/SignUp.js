@@ -44,7 +44,7 @@ const SignUp = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="form-outline mb-4">
-          <label className="form-label" for="form3Example3cg">
+          <label className="form-label" htmlFor="form3Example3cg">
             Your Email
           </label>
           <input
@@ -59,7 +59,7 @@ const SignUp = () => {
         </div>
 
         <div className="form-outline mb-4">
-          <label className="form-label" for="form3Example4cg">
+          <label className="form-label" htmlFor="form3Example4cg">
             Password
           </label>
           <input
@@ -74,7 +74,7 @@ const SignUp = () => {
         </div>
 
         <div className="form-outline mb-4">
-          <label className="form-label" for="form3Example4cdg">
+          <label className="form-label" htmlFor="form3Example4cdg">
             Repeat your password
           </label>
           <input
@@ -95,7 +95,7 @@ const SignUp = () => {
             value=""
             id="form2Example3cg"
           />
-          <label className="form-check-label" for="form2Example3g">
+          <label className="form-check-label" htmlFor="form2Example3g">
             I agree all statements in{" "}
             <a href="#!" className="text-body">
               <u>Terms of service</u>

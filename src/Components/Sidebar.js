@@ -1,8 +1,8 @@
 import React from "react";
-import {Button} from 'react-bootstrap'
+import {Button} from 'react-bootstrap';
 
 const Sidebar = ({handleFilters}) => {
-  const [priceRange, setPriceRange] = React.useState(100000);
+  const [priceRange, setPriceRange] = React.useState(1000);
   const [category, setCategory] = React.useState("");
 
   return (
@@ -10,14 +10,15 @@ const Sidebar = ({handleFilters}) => {
       <h4>FILTER</h4>
       <hr/>
       <h5>Price &#8377;{priceRange}</h5>
-      <input type="range" min="0" max="100000" value={priceRange} onChange={(event) => setPriceRange(event.target.value)} />
+      <input type="range" min="0" max="1000" value={priceRange} onChange={(event) => setPriceRange(event.target.value)} />
       <h5>Category</h5>
       <select className="mb-2" value={category} onChange={(event) => setCategory(event.target.value)}>
         <option value="">All</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Clothing">Clothing</option>
+        <option value="electronics">Electronics</option>
+        <option value="men's clothing">Men's Clothing</option>
+        <option value="women's clothing">Women's Clothing</option>
         <option value="Books">Books</option>
-        <option value="Home & Garden">Home & Garden</option>
+        <option value="jewelery">Jewellery</option>
         <option value="Sports & Outdoors">Sports & Outdoors</option>
         <option value="Toys & Games">Toys & Games</option>
         <option value="Food & Beverages">Food & Beverages</option>

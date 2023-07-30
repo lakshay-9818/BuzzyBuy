@@ -15,6 +15,7 @@ export const useProdVal =()=>{
 export const ProductProvider = ({ children }) => { 
 
    const {userId}= useValue();
+   const [allProducts,setAllProducts]=useState([]);
    const[isLoading,setLoading]=useState(false);
    const [isAdding,setIsAdding]=useState(null);
    const [productsInCart,setPiC]= useState([]);
@@ -22,7 +23,8 @@ export const ProductProvider = ({ children }) => {
    const[total,setTotal]=useState(0);
    const[ordersList,setOrdersList]=useState([]);
 
-  useEffect(()=>{
+  useEffect(()=>{    
+      getAllProducts();
     auth.onAuthStateChanged((user)=>{
       if(user){
         getData(user.uid)
@@ -31,22 +33,35 @@ export const ProductProvider = ({ children }) => {
     completeCartList();
   },[]);
 
+  const getAllProducts=async()=>{
+    setLoading(true);
+    try {
+      const response = await fetch('https://fakestoreapi.com/products');
+      const json = await response.json();
+        
+     setAllProducts(json);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+    setLoading(false);
+  }
+
   const completeCartList = async () => {
     let tempT=0;
     // Use map with async/await to fetch product details for each item in the cart
     const cartL = await Promise.all(productsInCart.map(async doc => {
-      const prodDetailsRef = await getDoc(doc.prodRef);
-      const prodDetails = prodDetailsRef.data();
-      tempT+=(prodDetails.price)*(doc.qty);
+      
+      const prodDetails = allProducts.find((obj) => obj.id === doc.id);
+
+      tempT+=((Number(prodDetails.price))*(Number(doc.qty)));
       return {
-        ...prodDetails,
-        productId:doc.productId,
+        ...prodDetails,        
         qty: doc.qty,
       };
     })
     );
     
-    setTotal(tempT);
+    setTotal(  Math.round((tempT + Number.EPSILON) * 100) / 100  );
     // Set the resolved cart items to the cartList state
     setCartList(cartL);
   
@@ -59,16 +74,15 @@ export const ProductProvider = ({ children }) => {
   }, [productsInCart]);
 
 
-const handleCart = async(productId,isInc) => {
+const handleCart = async(id,isInc) => {
    let index =-1;  
-  setIsAdding(productId); 
-    const prodRef = doc(db, 'Products',productId);
+  setIsAdding(id);     
     const cartRef = doc(db, "Carts", userId);
     const cartSnap = await getDoc(cartRef);
      var productsArray=[]; var pQty=0;
 
 if (cartSnap.exists()) { productsArray= cartSnap.data().products; 
- index = productsArray.findIndex(obj => obj.productId === productId);
+ index = productsArray.findIndex(obj => obj.id === id);
  if(index!==-1){
   pQty=productsArray[index].qty;
   productsArray.splice(index,1);
@@ -84,7 +98,7 @@ if(!isInc && pQty<=1){setPiC(productsArray);
 
 isInc? pQty++: pQty--;
 
-const newProduct= { productId,prodRef,qty:pQty};
+const newProduct= { id,qty:pQty};
 
 if(index===-1){productsArray.push(newProduct);}
 else{
@@ -128,7 +142,8 @@ purchases=[{date:(new Date()).toLocaleDateString('en-US')
 
 
   const getData = async (userId) => {
-    setLoading(true);
+    setLoading(true);    
+
     try{// cart info
     const cartRef = doc(db, "Carts", userId);  
     const cartSnap = await getDoc(cartRef);
@@ -148,7 +163,7 @@ purchases=[{date:(new Date()).toLocaleDateString('en-US')
 
   return (
     <ProductContext.Provider 
-    value={{handleCart,cartList,isAdding,isLoading,
+    value={{handleCart,cartList,isAdding,isLoading,allProducts,
         total,handlePurchase,ordersList}}>
       {children}
     </ProductContext.Provider>

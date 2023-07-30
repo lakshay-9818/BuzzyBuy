@@ -5,28 +5,15 @@ import SearchBar from "../Components/SearchBar";
 import {Row, Col, Container,Spinner} from 'react-bootstrap';
 import { collection,getDocs} from "firebase/firestore";
 import { db } from "../firebaseInit";
+import { useProdVal } from "../context/ProductContext";
 
-const Home = () => {
-  const [products, setProducts] = useState([]);
+const Home = () => {  
   const [searchTerm, setSearchTerm] = useState(""); 
   const [priceRange,setPriceRange]= useState(100000);
-  const [searchCategory,setCategory]= useState("");
-  const [isLoading,setLoading]= useState(false);
+  const [searchCategory,setCategory]= useState("");  
+  const {allProducts,isLoading}=useProdVal(); 
 
-  const getData = async () => {
-    setLoading(true);
-    const snapshot = await getDocs(collection(db, "Products"));
-    const products = snapshot.docs.map((doc) => ({
-      productId: doc.id,
-      ...doc.data(),
-    }));
-    setProducts(products);
-    setLoading(false);
-  };
-
-  React.useEffect(() => {
-    getData();
-  }, []);   
+   
 
   const handleSearch = (event) => { event.preventDefault();
     // Update the search term.
@@ -59,7 +46,7 @@ const Home = () => {
           <Spinner animation="border" />
           </div>:
           <ProductList 
-            products={products}
+            products={allProducts}
             searchTerm={searchTerm}  
             priceRange={priceRange}      
             searchCategory={searchCategory}    

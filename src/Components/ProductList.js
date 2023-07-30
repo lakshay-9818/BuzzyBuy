@@ -6,7 +6,7 @@ const ProductList = ({ products, searchTerm, searchCategory, priceRange }) => {
   const filteredProducts = (products = products.filter((product) => {
     
     return (
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      product.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       product.price <= priceRange &&(
         !searchCategory || product.category === searchCategory
       )      
@@ -16,7 +16,7 @@ const ProductList = ({ products, searchTerm, searchCategory, priceRange }) => {
   return (
     <div className="card-container d-flex flex-row flex-wrap border">
       {filteredProducts.map((product) => (
-        <ProductCard key={product.productId} product={product} isCart={false} />
+        <ProductCard key={product.id} product={product} isCart={false} />
       ))}
     </div>
   );
