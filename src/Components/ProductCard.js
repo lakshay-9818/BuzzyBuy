@@ -14,10 +14,10 @@ const ProductCard = ({ product, isCart}) => {
       <Card.Title>{product.name}</Card.Title>      
       <Card.Text>₹{product.price}</Card.Text>      
       {isCart?
-      <div className="d-flex">
-      <Button  onClick={()=>handleCart(product.productId,false)}>-</Button>
+      <div className="d-flex" style={{height: '30px', margin:'auto'}}>
+      <Button variant="secondary" className="align-top" onClick={()=>handleCart(product.productId,false)}>-</Button>
       <Card.Text className="px-3">{product.qty}</Card.Text>
-      <Button onClick={()=>handleCart(product.productId,true)}>+</Button>
+      <Button variant="secondary" onClick={()=>handleCart(product.productId,true)}>+</Button>
       </div>:
       <>{
       isAdding===product.productId?<Button>Adding..</Button>:      

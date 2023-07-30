@@ -3,7 +3,7 @@ import { createContext, useState,useContext,useEffect } from "react";
 import { useValue } from "./UserContext";
 import { doc, setDoc, getDoc,deleteDoc} from "firebase/firestore"; 
 import { db ,auth} from "../firebaseInit";
-import { toast } from "react-toastify";
+
 
 export const ProductContext = createContext();
 
@@ -60,7 +60,6 @@ export const ProductProvider = ({ children }) => {
 
 
 const handleCart = async(productId,isInc) => {
-  try{
    let index =-1;  
   setIsAdding(productId); 
     const prodRef = doc(db, 'Products',productId);
@@ -100,15 +99,11 @@ setPiC(productsArray);
     await setDoc(doc(db, "Carts", userId), {
    products:productsArray
     });
-    if(isInc)toast.success("Product added succcessfully");
-    else toast.info("Product removed"); 
-  }catch(err){ toast.error('Error occured!')}
-    setIsAdding(null);    
+    setIsAdding(null);
 };  
 
 
 const handlePurchase=async()=>{
-  try{
   let purchases=[];
 // step 0: get prev data from Db
 const orderRef = doc(db, "Orders", userId);
@@ -122,13 +117,11 @@ purchases=[{date:(new Date()).toLocaleDateString('en-US')
   //step 1: put cart into orders
   await setDoc(doc(db, "Orders", userId),{purchases
    });
-   toast.success('Order placed successfully!');
     //step 2: delete data for cart
   await deleteDoc(doc(db, "Carts", userId));
   setPiC([]);
   //step 3: update ordersList
   setOrdersList(purchases);
-  }catch{toast.error('Error Occured! Order not placed')}
   };
 
 

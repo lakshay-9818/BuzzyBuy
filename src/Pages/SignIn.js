@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useValue } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "../signInstyl.css";
+import { Container } from "react-bootstrap";
 
 function SignIn() {
   const { fMethodToLogin } = useValue();
@@ -29,6 +30,7 @@ function SignIn() {
   };
 
   return (
+    <Container className="w-50 border rounded-3 bg-light my-1">
     <div className="card-body p-5">
       <h2 className="text-uppercase text-center mb-5">LogIn to your account</h2>
 
@@ -98,6 +100,7 @@ function SignIn() {
         </p>
       </form>
     </div>
+    </Container>
   );
 }
 

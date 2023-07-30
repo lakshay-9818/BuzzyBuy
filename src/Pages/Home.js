@@ -5,8 +5,6 @@ import SearchBar from "../Components/SearchBar";
 import {Row, Col, Container,Spinner} from 'react-bootstrap';
 import { collection,getDocs} from "firebase/firestore";
 import { db } from "../firebaseInit";
-import {ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -43,8 +41,7 @@ const Home = () => {
 
   
 
-  return (<>
-    <ToastContainer autoClose={1000}/>
+  return (
     <Container fluid>  
       <Row className="w-25 p-1 border mb-2" style={{margin:'auto'}}>   
         <SearchBar onSearch={handleSearch} />
@@ -71,7 +68,6 @@ const Home = () => {
         </Col>      
       </Row>
     </Container>
-    </>
   );
 };
 

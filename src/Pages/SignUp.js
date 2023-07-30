@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useValue } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import {Container} from 'react-bootstrap'
 import "../signInstyl.css";
 
 const SignUp = () => {
@@ -37,6 +38,7 @@ const SignUp = () => {
   };
 
   return (
+    <Container className="w-50 border bg-light rounded-3 my-1">
     <div className="card-body p-5">
       <h2 className="text-uppercase text-center mb-5">Create an account</h2>
 
@@ -121,6 +123,7 @@ const SignUp = () => {
         </p>
       </form>
     </div>
+    </Container>
   );
 };
 

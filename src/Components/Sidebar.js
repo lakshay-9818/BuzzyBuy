@@ -6,11 +6,12 @@ const Sidebar = ({handleFilters}) => {
   const [category, setCategory] = React.useState("");
 
   return (
-    <div className="border p-3 rounded-2 text-center" style={{ backgroundColor: '#f0f0fc'}}>
-      <h4>Filter</h4>
+    <div className="border p-3 rounded-2 text-center" style={{ backgroundColor: '#f2eedf'}}>
+      <h4>FILTER</h4>
+      <hr/>
       <h5>Price &#8377;{priceRange}</h5>
       <input type="range" min="0" max="100000" value={priceRange} onChange={(event) => setPriceRange(event.target.value)} />
-      <h4>Category</h4>
+      <h5>Category</h5>
       <select className="mb-2" value={category} onChange={(event) => setCategory(event.target.value)}>
         <option value="">All</option>
         <option value="Electronics">Electronics</option>

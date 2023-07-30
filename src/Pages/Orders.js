@@ -10,8 +10,7 @@ function Orders() {
   return (   
     isLoading?<div className="loader">
     <Spinner animation="border" />
-    </div>  :
-    
+    </div>: 
     <Container>
       <h1>Your Orders</h1>
       {ordersList.map(or=>    
