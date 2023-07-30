@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+Buzzy Buy Ecommerce website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## For demo [click](https://buzzybuy-f7435.firebaseapp.com/)
 
-## Available Scripts
+# BuyBusy is a web application for the customers of an e-commerce business.
 
-In the project directory, you can run:
+Developed an E-Commerce that enables individuals to browse available items, add or remove them from their shopping cart, and complete the purchasing process.
 
-### `npm start`
+# Key Features
+- Created and initialize a new firestore for the BusyBuy app and include it inside the project.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Created a register page that allows new users to register into your app.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Created a login page that allows existing users to login into your app.
 
-### `npm test`
+- Created a home page to display a list of products. The home page should include a feature to search products by name.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Created a cart page to display the products that the user has added to the cart.
 
-### `npm run build`
+- Created a product card component that displays the image, title, price, and a button to add or remove that specific product from the cart. If the product is already in the cart, its quantity should be increased.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- The product card should only render the increase and decrease buttons if the product is on the cart page.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Created an orders page to display the products the user has purchased and the order date.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Created a sidebar to filter the products based on product price and categories on the HomePage. The search and filter should be applied to the products simultaneously.
 
-### `npm run eject`
+- Added conditional rendering to show the absence of data and loading state using the react-spinners library.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Show toast messages for async actions and error conditions using the react-toastify library.
