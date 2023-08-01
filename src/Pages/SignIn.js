@@ -3,6 +3,8 @@ import { useValue } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "../signInstyl.css";
 import { Container } from "react-bootstrap";
+import {ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignIn() {
   const { fMethodToLogin } = useValue();

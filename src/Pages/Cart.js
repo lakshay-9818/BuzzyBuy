@@ -1,6 +1,7 @@
 import React from 'react'
 import { useProdVal } from '../context/ProductContext';
 import ProductCard from '../Components/ProductCard';
+import {ToastContainer } from "react-toastify";
 
 import {Row, Col, Container,Button,Spinner} from 'react-bootstrap';
 
@@ -10,11 +11,12 @@ function Cart() {
   if(isLoading)return <div className="loader">
           <Spinner animation="border" />
           </div>;
-  if(cartList.length===0) return <h1>cart is empty</h1>;
+  if(cartList.length===0) return <><ToastContainer autoClose={1000}/><h1>cart is empty</h1></>;
   else
   return(
 
     <Container className='border'> 
+    <ToastContainer  position="top-center" autoClose={1000}/>
     <Row>
     <Col md={2}>
     <div className="border p-3 rounded-2 text-center" style={{

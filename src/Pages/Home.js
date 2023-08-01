@@ -3,8 +3,8 @@ import ProductList from "../Components/ProductList";
 import Sidebar from "../Components/Sidebar";
 import SearchBar from "../Components/SearchBar";
 import {Row, Col, Container,Spinner} from 'react-bootstrap';
-import { collection,getDocs} from "firebase/firestore";
-import { db } from "../firebaseInit";
+import {ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useProdVal } from "../context/ProductContext";
 
 const Home = () => {  
@@ -30,6 +30,7 @@ const Home = () => {
 
   return (
     <Container fluid>  
+      <ToastContainer position="top-center" autoClose={1000}/>
       <Row className="w-25 p-1 border mb-2" style={{margin:'auto'}}>   
         <SearchBar onSearch={handleSearch} />
       </Row> 

@@ -3,6 +3,7 @@ import { createContext, useState,useContext,useEffect } from "react";
 import { useValue } from "./UserContext";
 import { doc, setDoc, getDoc,deleteDoc} from "firebase/firestore"; 
 import { db ,auth} from "../firebaseInit";
+import { toast} from "react-toastify";
 
 
 export const ProductContext = createContext();
@@ -77,6 +78,7 @@ export const ProductProvider = ({ children }) => {
 const handleCart = async(id,isInc) => {
    let index =-1;  
   setIsAdding(id);     
+  try{
     const cartRef = doc(db, "Carts", userId);
     const cartSnap = await getDoc(cartRef);
      var productsArray=[]; var pQty=0;
@@ -114,10 +116,13 @@ setPiC(productsArray);
    products:productsArray
     });
     setIsAdding(null);
+    isInc?toast.success(`Item added to cart.`):toast.success(`Item removed from cart.`);
+  }catch{toast.error(`error!.`);}
 };  
 
 
 const handlePurchase=async()=>{
+  try{
   let purchases=[];
 // step 0: get prev data from Db
 const orderRef = doc(db, "Orders", userId);
@@ -136,6 +141,8 @@ purchases=[{date:(new Date()).toLocaleDateString('en-US')
   setPiC([]);
   //step 3: update ordersList
   setOrdersList(purchases);
+  toast.error(`Order placed successfully!`);
+  }catch{toast.error(`error!Order not placed`);}
   };
 
 

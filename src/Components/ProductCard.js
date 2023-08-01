@@ -5,13 +5,19 @@ import { useValue } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product, isCart}) => {
+  const limit=(str,len)=>{
+    if(str.length<=len)return str;
+    let ans= str.substring(0,len-3);
+     return (ans+'...');
+  }
+
   const {handleCart,isAdding}= useProdVal();
   const {userId}= useValue();
   const navigate= useNavigate();
   return (
     <Card className="m-2 p-2" style={{ width:'23%'}}>
-      <Card.Img src={product.image} style={{ height: '250px' }} />
-      <Card.Title>{product.title}</Card.Title>      
+      <Card.Img src={product.image} style={{ height: '270px' }} />
+      <Card.Title style={{ height: '50px' }}>{limit(product.title,30)}</Card.Title>      
       <Card.Text>₹{product.price}</Card.Text>      
       {isCart?
       <div className="d-flex" style={{height: '30px', margin:'auto'}}>

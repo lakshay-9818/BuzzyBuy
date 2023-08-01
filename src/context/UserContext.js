@@ -2,7 +2,7 @@
 import { createContext, useState,useContext, useEffect } from "react";
 import {createUserWithEmailAndPassword,signInWithEmailAndPassword  } from "firebase/auth";
 import {auth} from '../firebaseInit';
-
+import { toast} from "react-toastify";
 
 export const UserContext = createContext();
 
@@ -33,10 +33,10 @@ const fMethodToRegister=(email,password)=>{
   // Signed in 
   const user = userCredential.user;
   setUserId(user.uid)
- 
+  toast.success('Account created successfully'); 
 })
 .catch((error) => {
-  alert(error.message);
+  toast.error(error.message);
   // ..
 });
 }
@@ -48,10 +48,11 @@ const fMethodToLogin=(email,password)=>{
     // Signed in 
     const user = userCredential.user;
     // ...        
-    setUserId(user.uid);       
+    setUserId(user.uid);  
+    toast.success('User Logged In successfully');     
   })
   .catch((error) => {
-    alert(error.message);
+    toast.error(error.message);
   });
 
 }
@@ -60,6 +61,7 @@ const fMethodToLogin=(email,password)=>{
 const fMethodToLogout=()=>{
   auth.signOut();
   setUserId(null);
+  toast.warning('Logged out');
 }
 
   return (

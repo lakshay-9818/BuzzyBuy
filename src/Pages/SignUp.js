@@ -3,6 +3,8 @@ import { useValue } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import {Container} from 'react-bootstrap'
 import "../signInstyl.css";
+import {ToastContainer ,toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -26,19 +28,20 @@ const SignUp = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      console.log("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
     // Submitting the form data to the cloud firestore
-    fMethodToRegister(email, password);
+     await fMethodToRegister(email, password);
     navigate("/");
   };
 
   return (
     <Container className="w-50 border bg-light rounded-3 my-1">
+      <ToastContainer position="top-center"/>
     <div className="card-body p-5">
       <h2 className="text-uppercase text-center mb-5">Create an account</h2>
 
