@@ -2,7 +2,7 @@ Buzzy Buy Ecommerce website
 
 ## For demo [click](https://buzzybuy-f7435.firebaseapp.com/)
 
-# BuyBusy is a web application for the customers of an e-commerce business.
+# BuzzyBuy is a web application for the customers of an e-commerce business.
 
 Developed an E-Commerce that enables individuals to browse available items, add or remove them from their shopping cart, and complete the purchasing process.
 
